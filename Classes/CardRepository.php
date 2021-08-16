@@ -45,7 +45,9 @@ class CardRepository
     {
         // replace dummy data by real one
         $sql = "SELECT * FROM cardcollection";
-        $result = $this->databaseManager->connection->query($sql);
+        $output = $this->databaseManager->connection->query($sql);
+
+        $result = $output->fetchAll();
 
         return $result;
 
