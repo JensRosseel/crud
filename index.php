@@ -9,7 +9,7 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 // Load you classes
-require_once 'config.php';
+require_once '.gitignore/config.php';
 require_once 'classes/DatabaseManager.php';
 require_once 'classes/CardRepository.php';
 
@@ -19,6 +19,14 @@ $databaseManager->connect();
 // This example is about a Pokémon card collection
 // Update the naming if you'd like to work with another collection
 $cardRepository = new CardRepository($databaseManager);
+if(isset($_POST['add']))
+{
+    $cardRepository->create($_POST['name'], $_POST['cardtype'], $_POST['rarity']);
+}
+if(isset($_POST['edit']))
+{
+    $cardRepository->update($_POST['changeName'], $_POST['changeCardtype'], $_POST['changeRarity']);
+}
 $cards = $cardRepository->get();
 
 // Load your view

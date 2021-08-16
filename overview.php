@@ -9,13 +9,34 @@
 </head>
 <body>
 
-<h1>Goodcard - track your collection of Yugioh cards</h1>
+<h1>Selfhelp - track your wasted money because of Yugioh cards</h1>
 
 <ul>
     <?php foreach ($cards as $card) : ?>
-        <li><?= $card['name'] ?></li>
+        <li><?= $card['name'] . " " . $card['cardtype'] . " " . $card['rarity'] ?> <a href="edit.php?edit=<?= $card['name'] ?>">edit</a></li>
     <?php endforeach; ?>
 </ul>
+
+<form action="" method="post">
+    <fieldset>
+        <legend>Add new entry</legend>
+        <table>
+            <tr>
+                <td><label for="name">Name: </label></td>
+                <td><input type="text" name="name" id="name"></td>
+            </tr>
+            <tr>
+                <td><label for="cardtype">Cardtype: </label></td>
+                <td><input type="text" name="cardtype" id="cardtype"></td>
+            </tr>
+            <tr>
+                <td><label for="rarity">Rarity: </label></td>
+                <td><input type="text" name="rarity" id="rarity"></td>
+            </tr>
+        </table>  
+        <input type="submit" name="add" value="ADD">
+    </fieldset>
+</form>
 
 </body>
 </html>

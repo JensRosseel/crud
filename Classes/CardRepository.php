@@ -13,9 +13,25 @@ class CardRepository
         $this->databaseManager = $databaseManager;
     }
 
-    public function create()
+    public function create(string $name, string $cardtype, string $rarity)
     {
+        $sql = "SELECT name FROM cardcollection WHERE name = '{$name}'";
+        $control = $this->databaseManager->connect()->query($sql);
+        if($sql == $control)
+        {
+            echo "<script> alert('This card is already in the database.'); </script>";
+        }
+        else if($name == '' || $cardtype == '' || $rarity == '')
+        {
+            echo "<script> alert('All boxes must be filled.'); </script>";
+        }
+        else
+        {
+            $sql = "INSERT INTO cardcollection (name, cardtype, rarity) VALUES ('{$name}', '{$cardtype}', '{$rarity}');";
+            $this->databaseManager->connect()->query($sql);
 
+            echo "<script> alert('Card has been added to the database.'); </script>";
+        }
     }
 
     // Get one
@@ -37,9 +53,57 @@ class CardRepository
         // return $this->databaseManager->connection-> (runYourQueryHere)
     }
 
-    public function update()
+    public function update(string $name = '', string $cardtype = '', string $rarity = '')
     {
+        if($name == '')
+        {
+            if($cardtype == '')
+            {
+                if($rarity != '')
+                {
+                     $sql = "UPDATE cardcollection SET rarity = '{$rarity}' WHERE name = '{$_GET['edit']}'";
+                }
+            }
+            else
+            {
+                if($rarity != '')
+                {
+                     $sql = "UPDATE cardcollection SET rarity = '{$rarity}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
+                }
+                else
+                {
+                     $sql = "UPDATE cardcollection SET cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
+                }
+            }
+        }
+        else
+        {
+            if($cardtype == '')
+            {
+                if($rarity != '')
+                {
+                     $sql = "UPDATE cardcollection SET name = '{$name}', rarity = '{$rarity}' WHERE name = '{$_GET['edit']}'";
+                }
+                else
+                {
+                    $sql = "UPDATE cardcollection SET name = '{$name}' WHERE name = '{$_GET['edit']}'";
+                }
+            }
+            else
+            {
+                if($rarity != '')
+                {
+                     $sql = "UPDATE cardcollection SET name = '{$name}', rarity = '{$rarity}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
+                }
+                else
+                {
+                     $sql = "UPDATE cardcollection SET name = '{$name}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
+                }
+            }
+        }
 
+        $this->databaseManager->connect()->query($sql);
+        echo "<script> alert('Changes have been made')</script>";
     }
 
     public function delete()
