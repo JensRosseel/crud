@@ -57,51 +57,33 @@ class CardRepository
 
     public function update(string $name = '', string $cardtype = '', string $rarity = '') : void
     {
-        if($name == '')
+        if($name == '' && $cardtype == '' && $rarity != '')
         {
-            if($cardtype == '')
-            {
-                if($rarity != '')
-                {
-                     $sql = "UPDATE cardcollection SET rarity = '{$rarity}' WHERE name = '{$_GET['edit']}'";
-                }
-            }
-            else
-            {
-                if($rarity != '')
-                {
-                     $sql = "UPDATE cardcollection SET rarity = '{$rarity}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
-                }
-                else
-                {
-                     $sql = "UPDATE cardcollection SET cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
-                }
-            }
+            $sql = "UPDATE cardcollection SET rarity = '{$rarity}' WHERE name = '{$_GET['edit']}'";
         }
-        else
+        else if(if($name == '' && $cardtype != '' && $rarity == ''))
         {
-            if($cardtype == '')
-            {
-                if($rarity != '')
-                {
-                     $sql = "UPDATE cardcollection SET name = '{$name}', rarity = '{$rarity}' WHERE name = '{$_GET['edit']}'";
-                }
-                else
-                {
-                    $sql = "UPDATE cardcollection SET name = '{$name}' WHERE name = '{$_GET['edit']}'";
-                }
-            }
-            else
-            {
-                if($rarity != '')
-                {
-                     $sql = "UPDATE cardcollection SET name = '{$name}', rarity = '{$rarity}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
-                }
-                else
-                {
-                     $sql = "UPDATE cardcollection SET name = '{$name}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
-                }
-            }
+            $sql = "UPDATE cardcollection SET cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
+        }
+        else if(if($name != '' && $cardtype == '' && $rarity == ''))
+        {
+            $sql = "UPDATE cardcollection SET name = '{$name}' WHERE name = '{$_GET['edit']}'";
+        }
+        else if(if($name != '' && $cardtype != '' && $rarity == ''))
+        {
+            $sql = "UPDATE cardcollection SET name = '{$name}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
+        }
+        else if(if($name == '' && $cardtype != '' && $rarity != ''))
+        {
+            $sql = "UPDATE cardcollection SET rarity = '{$rarity}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
+        }
+        else if(if($name != '' && $cardtype == '' && $rarity != ''))
+        {
+            $sql = "UPDATE cardcollection SET name = '{$name}', rarity = '{$rarity}' WHERE name = '{$_GET['edit']}'";
+        }
+        else if(if($name != '' && $cardtype != '' && $rarity != ''))
+        {
+            $sql = "UPDATE cardcollection SET name = '{$name}', rarity = '{$rarity}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
         }
 
         $this->databaseManager->connection->query($sql);
