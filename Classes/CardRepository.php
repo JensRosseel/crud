@@ -13,10 +13,10 @@ class CardRepository
         $this->databaseManager = $databaseManager;
     }
 
-    public function create(string $name, string $cardtype, string $rarity)
+    public function create(string $name, string $cardtype, string $rarity) : void
     {
         $sql = "SELECT name FROM cardcollection WHERE name = '{$name}'";
-        $control = $this->databaseManager->connect()->query($sql);
+        $control = $this->databaseManager->connection->query($sql);
         if($sql == $control)
         {
             echo "<script> alert('This card is already in the database.'); </script>";
@@ -28,7 +28,7 @@ class CardRepository
         else
         {
             $sql = "INSERT INTO cardcollection (name, cardtype, rarity) VALUES ('{$name}', '{$cardtype}', '{$rarity}');";
-            $this->databaseManager->connect()->query($sql);
+            $this->databaseManager->connection->query($sql);
 
             echo "<script> alert('Card has been added to the database.'); </script>";
         }
@@ -41,11 +41,11 @@ class CardRepository
     }
 
     // Get all
-    public function get()
+    public function get() : array
     {
         // replace dummy data by real one
         $sql = "SELECT * FROM cardcollection";
-        $result = $this->databaseManager->connect()->query($sql);
+        $result = $this->databaseManager->connection->query($sql);
 
         return $result;
 
@@ -53,7 +53,7 @@ class CardRepository
         // return $this->databaseManager->connection-> (runYourQueryHere)
     }
 
-    public function update(string $name = '', string $cardtype = '', string $rarity = '')
+    public function update(string $name = '', string $cardtype = '', string $rarity = '') : void
     {
         if($name == '')
         {
@@ -102,15 +102,15 @@ class CardRepository
             }
         }
 
-        $this->databaseManager->connect()->query($sql);
+        $this->databaseManager->connection->query($sql);
         echo "<script> alert('Changes have been made')</script>";
     }
 
-    public function delete()
+    public function delete() : void
     {
         $sql = "DELETE FROM cardcollection WHERE name = '{$_GET['delete']}'";
 
-        $this->databaseManager->connect()->query($sql);
+        $this->databaseManager->connection->query($sql);
         echo "<script> alert('Card has been deleted')</script>";
     }
 

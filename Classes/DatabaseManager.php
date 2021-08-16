@@ -22,7 +22,7 @@ class DatabaseManager
         $this->dbname = $dbname;
     }
 
-    public function connect()
+    public function connect() : void
     {
         // make the connection to the database
         $dbs = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
@@ -30,6 +30,5 @@ class DatabaseManager
 
         $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-        return $this->connection;
     }
 }
