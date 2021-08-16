@@ -61,27 +61,27 @@ class CardRepository
         {
             $sql = "UPDATE cardcollection SET rarity = '{$rarity}' WHERE name = '{$_GET['edit']}'";
         }
-        else if(if($name == '' && $cardtype != '' && $rarity == ''))
+        else if($name == '' && $cardtype != '' && $rarity == '')
         {
             $sql = "UPDATE cardcollection SET cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
         }
-        else if(if($name != '' && $cardtype == '' && $rarity == ''))
+        else if($name != '' && $cardtype == '' && $rarity == '')
         {
             $sql = "UPDATE cardcollection SET name = '{$name}' WHERE name = '{$_GET['edit']}'";
         }
-        else if(if($name != '' && $cardtype != '' && $rarity == ''))
+        else if($name != '' && $cardtype != '' && $rarity == '')
         {
             $sql = "UPDATE cardcollection SET name = '{$name}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
         }
-        else if(if($name == '' && $cardtype != '' && $rarity != ''))
+        else if($name == '' && $cardtype != '' && $rarity != '')
         {
             $sql = "UPDATE cardcollection SET rarity = '{$rarity}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
         }
-        else if(if($name != '' && $cardtype == '' && $rarity != ''))
+        else if($name != '' && $cardtype == '' && $rarity != '')
         {
             $sql = "UPDATE cardcollection SET name = '{$name}', rarity = '{$rarity}' WHERE name = '{$_GET['edit']}'";
         }
-        else if(if($name != '' && $cardtype != '' && $rarity != ''))
+        else if($name != '' && $cardtype != '' && $rarity != '')
         {
             $sql = "UPDATE cardcollection SET name = '{$name}', rarity = '{$rarity}', cardtype = '{$cardtype}' WHERE name = '{$_GET['edit']}'";
         }
@@ -96,6 +96,14 @@ class CardRepository
 
         $this->databaseManager->connection->query($sql);
         echo "<script> alert('Card has been deleted')</script>";
+    }
+
+    public function details() : void
+    {
+        $sql = "SELECT * FROM cardcollection WHERE name = '{$_GET['details']}';";
+        $result = $this->databaseManager->connection->query($sql)->fetchAll();
+
+        echo "<div class = container><p>ID: " . $result[0]['id'] . "</p><p>Name: " . $result[0]['name'] . "</p><p>Cardtype: " . $result[0]['cardtype'] . "</p><p>Rarity: " . $result[0]['rarity'] . "</p></div>";
     }
 
 }

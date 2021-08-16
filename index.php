@@ -35,4 +35,15 @@ $cards = $cardRepository->get();
 
 // Load your view
 // Tip: you can load this dynamically and based on a variable, if you want to load another view
-require 'overview.php';
+if(isset($_GET['details']))
+{
+    require 'details.php';
+}
+else if(isset($_GET['edit']))
+{
+    require 'edit.php';
+}
+else
+{
+    require 'overview.php';
+}
