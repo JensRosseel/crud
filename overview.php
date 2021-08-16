@@ -13,13 +13,12 @@
 
 <ul>
     <?php foreach ($cards as $card) : ?>
-        <li><?= $card['name'] . " " . $card['cardtype'] . " " . $card['rarity'] ?> <a href="edit.php?edit=<?= $card['name'] ?>">edit</a></li>
+        <li><?= $card['name'] . " " . $card['cardtype'] . " " . $card['rarity'] ?> <a href="edit.php?edit=<?= $card['name'] ?>">edit</a> <a href="?delete=<?= $card['name'] ?>">delete</a></li>
     <?php endforeach; ?>
 </ul>
-
 <form action="" method="post">
     <fieldset>
-        <legend>Add new entry</legend>
+        <legend>Add new Card</legend>
         <table>
             <tr>
                 <td><label for="name">Name: </label></td>

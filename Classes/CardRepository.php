@@ -108,7 +108,10 @@ class CardRepository
 
     public function delete()
     {
+        $sql = "DELETE FROM cardcollection WHERE name = '{$_GET['delete']}'";
 
+        $this->databaseManager->connect()->query($sql);
+        echo "<script> alert('Card has been deleted')</script>";
     }
 
 }

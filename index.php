@@ -27,6 +27,10 @@ if(isset($_POST['edit']))
 {
     $cardRepository->update($_POST['changeName'], $_POST['changeCardtype'], $_POST['changeRarity']);
 }
+if(isset($_GET['delete']))
+{
+    $cardRepository->delete();
+}
 $cards = $cardRepository->get();
 
 // Load your view
